@@ -9,6 +9,8 @@ import Paragraph from 'grommet/components/Paragraph';
 import Title from 'grommet/components/Title';
 
 class Content extends Component {
+  static propTypes = {};
+
   render() {
     return (
       <Article primary={true}>
