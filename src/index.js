@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import Main from './js/Main';
+
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import 'grommet/grommet.min.css';
+
+ReactDOM.render(<Main />, document.getElementById('root'));
 registerServiceWorker();
