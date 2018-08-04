@@ -3,7 +3,9 @@ import { createApiActions } from '../helpers/actionHelper';
 
 // API ACTIONS
 export const REPOSITORIES = createApiActions('REPOSITORIES', ['GET']);
+export const REPOSITORY_CONTRIBUTORS = createApiActions('REPOSITORY_CONTRIBUTORS', ['GET']);
 
 export default {
-  REPOSITORIES
+  REPOSITORIES,
+  REPOSITORY_CONTRIBUTORS
 };

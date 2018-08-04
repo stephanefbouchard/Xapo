@@ -23,10 +23,16 @@ function callApi(endpoint, method, parameters) {
 
   return fetch(endpoint, options)
     .then(response => response.json().then(json => ({ json, response })))
+    .then(({ json, response }) => {
+      if (!response.ok ) {
+        return Promise.reject(json);
+      }
+      return json;
+    })
     .then(
-      response => ({ data: response.json }),
+      response => ({ data: response }),
       error => {
-        return Promise.reject(new Error(error || 'Something bad happened'));
+        return Promise.reject(new Error(error.message || 'Something bad happened'));
       },
     );
 }

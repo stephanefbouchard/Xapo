@@ -5,6 +5,7 @@ import { apiCallReducer } from '../helpers/actionHelper';
 
 const initialState = {
   repositories: null,
+  repositoryContributors: null,
 };
 
 const sortByWatchers = (repositories) => (
@@ -17,6 +18,20 @@ export default function learningStore(state = initialState, action) {
       ...state,
       repositories: sortByWatchers(action.data)
     }),
+  });
+  state = apiCallReducer(state, action, actions.REPOSITORY_CONTRIBUTORS, 'GET', {
+    request: (state) => {
+      return {
+        ...state,
+        repositoryContributors: null
+      }
+    },
+    success: (state, action) => {
+      return {
+        ...state,
+        repositoryContributors: action.data
+      }
+    },
   });
   return state;
 }
