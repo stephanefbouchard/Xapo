@@ -28,6 +28,10 @@ Nice to have:
 - Use Redux ;
 - Use a side effect lib like redux-saga or RxJS.
 
+Api's
+GET https://api.github.com/orgs/facebook/repos to fetch all repos from facebook orgs.
+GET https://api.github.com/repos/facebook/codemod to fetch specific codemod repo
+
 NOTES: Please create a git repository for the example and work like you would in a real project.
 
 #### Reference 
