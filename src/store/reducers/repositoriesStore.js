@@ -7,11 +7,15 @@ const initialState = {
   repositories: null,
 };
 
+const sortByWatchers = (repositories) => (
+  repositories.sort((a, b) => ( b['watchers'] - a['watchers']))
+);
+
 export default function learningStore(state = initialState, action) {
   state = apiCallReducer(state, action, actions.REPOSITORIES, 'GET', {
     success: (state, action) => ({
       ...state,
-      repositories: action.data,
+      repositories: sortByWatchers(action.data)
     }),
   });
   return state;

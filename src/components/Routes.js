@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Content from './Content'
+import Dashboard from './sections/dashboard'
+import Repository from './sections/repository'
 
 class Routes extends Component {
   render() {
     return <Switch>
-      <Route exact={true} path='/' component={Content} />
-      <Route path='/wazzzup' component={Content} />
+      <Route exact={true} path='/' component={Dashboard} />
+      <Route path='/repo/:organization/:repository' component={Repository} />
     </Switch>;
   }
 }
