@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Article from 'grommet/components/Article';
 import Button from 'grommet/components/Button';
@@ -8,10 +9,14 @@ import Heading from 'grommet/components/Heading';
 import Paragraph from 'grommet/components/Paragraph';
 import Title from 'grommet/components/Title';
 
-class Content extends Component {
-  static propTypes = {};
+class Repository extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired
+  };
 
   render() {
+    const { organization, repository } = this.props.match.params;
+
     return (
       <Article primary={true}>
         <Header
@@ -26,16 +31,16 @@ class Content extends Component {
               responsive={false}
               pad={{ between: 'small' }}
             >
-              <Title>{'Wazzzupp this repo'}</Title>
+              <Title>{'Here is the repo details'}</Title>
             </Box>
           </Button>
         </Header>
         <Box pad='medium'>
           <Heading tag='h3' strong={true}>
-            Here we go
+            {organization} / {repository}
           </Heading>
           <Paragraph size='large'>
-           What are we gonna show here
+
           </Paragraph>
         </Box>
       </Article>
@@ -43,4 +48,4 @@ class Content extends Component {
   }
 }
 
-export default Content;
+export default Repository;
