@@ -1,7 +1,7 @@
 # Xapo Tech Test
 
 ### Node Requirement 
-Use node 8
+Use node 10
 
 ### Install
 npm install
@@ -11,6 +11,9 @@ npm start
 
 ### Test
 npm test
+
+### Technical Decision taken
+UI Framework : Decided to test Grommet Ui framework (https://github.com/grommet/grommet)
 
 ### Description of the project
 
