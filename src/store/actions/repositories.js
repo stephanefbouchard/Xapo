@@ -1,5 +1,6 @@
 import {
-  REPOSITORIES
+  REPOSITORIES,
+  REPOSITORY_CONTRIBUTORS
 } from '../actions';
 
 export function fetchRepositories(organizationName) {
@@ -7,6 +8,16 @@ export function fetchRepositories(organizationName) {
     type: REPOSITORIES.GET.SEND,
     payload: {
       organizationName: organizationName
+    }
+  }
+}
+
+export function fetchRepositoryContributors(organizationName, repositoryName) {
+  return {
+    type: REPOSITORY_CONTRIBUTORS.GET.SEND,
+    payload: {
+      organizationName: organizationName,
+      repositoryName: repositoryName
     }
   }
 }
