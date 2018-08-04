@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
 
 import Sidebar from 'grommet/components/Sidebar';
 import Header from 'grommet/components/Header';
@@ -9,9 +11,20 @@ import Button from 'grommet/components/Button';
 import CloseIcon from 'grommet/components/icons/base/Close';
 import Anchor from 'grommet/components/Anchor';
 
-import Logo from '../img/logo.png';
+import { fetchRepositories } from "../store/actions/repositories";
 
-class Nav extends Component {
+import Logo from '../images/logo.png';
+
+export class Nav extends Component {
+  static propTypes = {
+    repositoriesStore: PropTypes.object.isRequired,
+    fetchRepositories: PropTypes.func.isRequired
+  };
+
+  componentWillMount() {
+    this.props.fetchRepositories('facebook');
+  }
+
   render() {
     return (
       <Sidebar colorIndex='neutral-3' fixed={true}>
@@ -37,4 +50,12 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+const mapDispatchToProps = {
+  fetchRepositories
+};
+
+const mapStateToProps = (state) => ({
+  repositoriesStore: state.repositoriesStore,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)
