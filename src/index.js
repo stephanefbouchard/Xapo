@@ -10,10 +10,6 @@ import 'grommet/grommet.min.css';
 
 const MOUNT_NODE = document.getElementById('root');
 
-// For dev debugging purpose only
-// TO REMOVE
-window.store = store;
-
 let render = () => {
   ReactDOM.render(<AppContainer store={store} />, MOUNT_NODE);
 };

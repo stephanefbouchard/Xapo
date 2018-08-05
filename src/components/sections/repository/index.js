@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
 import Article from 'grommet/components/Article';
-import Button from 'grommet/components/Button';
 import Box from 'grommet/components/Box';
 import Header from 'grommet/components/Header';
 import Heading from 'grommet/components/Heading';
-import Paragraph from 'grommet/components/Paragraph';
 import Title from 'grommet/components/Title';
+import Spinning from 'grommet/components/icons/Spinning';
 
 import Contributors from './Contributors'
 
-import { fetchRepositories,} from "../../../store/actions/repositories";
+import {
+  fetchRepositories,
+  fetchRepositoryContributors
+} from "../../../store/actions/repositories";
 
 class Repository extends Component {
   static propTypes = {
@@ -30,50 +32,74 @@ class Repository extends Component {
   }
 
   componentWillMount() {
+    this.fetchRepositoryData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      this.fetchRepositoryData();
+    }
+  }
+
+  fetchRepositoryData() {
     this.props.fetchRepositories(this.getOrganizationFromParams());
+    this.props.fetchRepositoryContributors(this.getOrganizationFromParams(), this.getRepositoryFromParams());
   }
 
   render() {
     const { repositoriesStore } = this.props;
+    const organizationName = this.getOrganizationFromParams();
+    const repositoryName = this.getRepositoryFromParams();
 
     let apiStatus = repositoriesStore.api.REPOSITORIES_GET;
     if (apiStatus.error) {
       return <Article primary={true}>
-        <Header size='large' pad={{ horizontal: 'medium', between: 'small' }}>
+        <Header colorIndex='critical' size='large' colorIndexpad={{ horizontal: 'medium', between: 'small' }}>
           {apiStatus.error.message}
+        </Header>
+      </Article>;
+    }
+    if (!repositoriesStore.repositories) {
+      return <Box
+        direction='row'
+        responsive={false}
+        pad={{ between: 'small', horizontal: 'medium', vertical: 'medium' }}
+      >
+        <Spinning /><span>Loading...</span>
+      </Box>;
+    }
+
+    const repository = repositoriesStore.repositories.find((item) => (item.name === repositoryName));
+    if (!repository) {
+      return <Article primary={true}>
+        <Header colorIndex='critical' size='large' pad={{ horizontal: 'medium', between: 'small' }}>
+          Error Repository not found
         </Header>
       </Article>;
     }
 
     return (
       <Article primary={true}>
-        <Header
-          direction='row'
-          justify='between'
-          size='large'
-          pad={{ horizontal: 'medium', between: 'small' }}
-        >
-          <Button>
-            <Box
-              direction='row'
-              responsive={false}
-              pad={{ between: 'small' }}
-            >
-              <Title>{'Here is the repo details'}</Title>
-            </Box>
-          </Button>
-        </Header>
-        <Box pad='medium'>
-          <Heading tag='h3' strong={true}>
-            {this.getOrganizationFromParams()} / {this.getRepositoryFromParams()}
+        <Box pad='medium' colorIndex='neutral-3'>
+          <Heading tag='h3' strong>
+            {repository.full_name}
           </Heading>
-          <Paragraph size='large'>
-            <Title>Contributors</Title>
-            <Contributors
-              organizationName={this.getOrganizationFromParams()}
-              repositoryName={this.getRepositoryFromParams()}
-            />
-          </Paragraph>
+          <Heading tag='h4'>
+            Watchers: {repository.watchers_count} Stars: {repository.stargazers_count} Forks: {repository.forks}
+          </Heading>
+          <Heading tag='h4'>
+            Github Url : <a href={repository.html_url} target={'_blank'}>{ repository.html_url }</a>
+          </Heading>
+          <Heading tag='h4'>
+            Homepage : <a href={repository.homepage} target={'_blank'}>{ repository.homepage }</a>
+          </Heading>
+        </Box>
+        <Box pad='medium' colorIndex='neutral-6'>
+          <Title>Contributors</Title>
+          <Contributors
+            organizationName={organizationName}
+            repositoryName={repositoryName}
+          />
         </Box>
       </Article>
     );
@@ -81,7 +107,8 @@ class Repository extends Component {
 }
 
 const mapDispatchToProps = {
-  fetchRepositories
+  fetchRepositories,
+  fetchRepositoryContributors,
 };
 
 const mapStateToProps = (state) => ({

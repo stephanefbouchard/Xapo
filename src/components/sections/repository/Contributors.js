@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
-import Paragraph from 'grommet/components/Paragraph';
-import Heading from 'grommet/components/Heading';
-
-import { fetchRepositoryContributors } from "../../../store/actions/repositories";
+import Box from 'grommet/components/Box';
+import Spinning from 'grommet/components/icons/Spinning';
 
 class Contributors extends Component {
   static propTypes = {
     organizationName: PropTypes.string.isRequired,
     repositoryName: PropTypes.string.isRequired,
     repositoriesStore: PropTypes.object.isRequired,
-    fetchRepositoryContributors: PropTypes.func.isRequired,
   };
-
-  componentWillMount() {
-    const {organizationName, repositoryName} = this.props;
-
-    this.props.fetchRepositoryContributors(organizationName, repositoryName);
-  }
 
   render() {
     const {repositoriesStore} = this.props;
@@ -27,28 +18,32 @@ class Contributors extends Component {
 
     let apiStatus = repositoriesStore.api.REPOSITORY_CONTRIBUTORS_GET;
     if (apiStatus.isFetching) {
-      return <span>Loading Contributors...</span>;
+      return <Box
+        direction='row'
+        responsive={false}
+        pad={{ between: 'small', horizontal: 'medium', vertical: 'medium' }}
+      >
+        <Spinning /><span>Loading Contributors...</span>
+      </Box>;
     }
     if (apiStatus.error) {
       return <span>{apiStatus.error.message}</span>;
     }
 
     return (
-      <Paragraph size='large'>
+      <Box size='large'>
         {
           Object.keys(repositoryContributors).map(key => {
             const contributor = repositoryContributors[key];
-            return <Heading tag='h6' key={contributor.id}>{contributor.login}</Heading>
+            return <a tag='h6' key={contributor.id}>{contributor.login} </a>
           })
         }
-      </Paragraph>
+      </Box>
     );
   }
 }
 
-const mapDispatchToProps = {
-  fetchRepositoryContributors,
-};
+const mapDispatchToProps = {};
 
 const mapStateToProps = (state) => ({
   repositoriesStore: state.repositoriesStore,

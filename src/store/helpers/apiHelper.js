@@ -1,3 +1,5 @@
+import config from '../../config'
+
 export const get = endpoint => {
   return callApi(endpoint);
 };
@@ -10,6 +12,7 @@ function callApi(endpoint, method, parameters) {
   let options = {
     crossDomain: true,
     headers: {
+      'Authorization': `Token ${config.GITHUB_OAUTH_TOKEN}`,
       'content-type': 'application/json',
     },
   };
