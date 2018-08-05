@@ -1,5 +1,9 @@
 # Xapo Tech Test
 
+### Demo is deployed at
+[http://xapotechtest.s3-website.ca-central-1.amazonaws.com/](http://xapotechtest.s3-website.ca-central-1.amazonaws.com/)
+Using S3 serverless approach
+
 ### Node Requirement 
 Use node 10
 
@@ -9,11 +13,21 @@ npm install
 ### Run 
 npm start
 
+### Production building
+npm run build
+
+### S3 deployment
+npm run deploy
+
+### Github Rate limit
+To remove github rate limit. 
+Go in src/config/index.js and add you personal github access token
+
 ### Test
 npm test
 
 ### Technical Decision taken
-UI Framework : Decided to test Grommet Ui framework (https://github.com/grommet/grommet)
+UI Framework : Decided to test Grommet Ui framework ([https://github.com/grommet/grommet](https://github.com/grommet/grommet))
 
 ### Description of the project
 
@@ -30,10 +44,6 @@ Requirements for the project:
 Nice to have:
 - Use Redux ;
 - Use a side effect lib like redux-saga or RxJS.
-
-Api's
-GET https://api.github.com/orgs/facebook/repos to fetch all repos from facebook orgs.
-GET https://api.github.com/repos/facebook/codemod to fetch specific codemod repo
 
 NOTES: Please create a git repository for the example and work like you would in a real project.
 
