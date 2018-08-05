@@ -12,10 +12,13 @@ function callApi(endpoint, method, parameters) {
   let options = {
     crossDomain: true,
     headers: {
-      'Authorization': `Token ${config.GITHUB_OAUTH_TOKEN}`,
       'content-type': 'application/json',
     },
   };
+
+  if (config.GITHUB_OAUTH_TOKEN) {
+    options.headers['Authorization'] = `Token ${config.GITHUB_OAUTH_TOKEN}`;
+  }
 
   if (method) {
     options.method = method;

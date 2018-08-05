@@ -3,8 +3,8 @@ let config = {
   LOCAL_STORAGE_KEY: 'XapoLocalTechTestData',
   GITHUB_ORGANIZATION: 'facebook',
 
-  // NOT SAFE! Token should not be here! Just there to demo this project
-  GITHUB_OAUTH_TOKEN: '2ca1731235c4246b1e4a587d30bd371a48a1b777'
+  // ADD GITHUB PERSONAL ACCESS TOKEN TO REMOVE RATE LIMITING FROM GITHUB API (https://github.com/settings/tokens)
+  GITHUB_OAUTH_TOKEN: ''
 };
 
 export default config;

@@ -54,7 +54,7 @@ class Repository extends Component {
     let apiStatus = repositoriesStore.api.REPOSITORIES_GET;
     if (apiStatus.error) {
       return <Article primary={true}>
-        <Header colorIndex='critical' size='large' colorIndexpad={{ horizontal: 'medium', between: 'small' }}>
+        <Header colorIndex='critical' size='large' pad={{ horizontal: 'medium', between: 'small' }}>
           {apiStatus.error.message}
         </Header>
       </Article>;

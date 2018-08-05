@@ -35,7 +35,7 @@ class Contributors extends Component {
         {
           Object.keys(repositoryContributors).map(key => {
             const contributor = repositoryContributors[key];
-            return <a tag='h6' key={contributor.id}>{contributor.login} </a>
+            return <span><a href={contributor.html_url} target='_blank' key={contributor.id}>{contributor.login}</a></span>
           })
         }
       </Box>
