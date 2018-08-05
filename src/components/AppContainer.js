@@ -21,7 +21,7 @@ class AppContainer extends Component {
     const { store } = this.props;
 
     return (
-      <App>
+      <App centered={false}>
         <Provider store={store}>
           <ConnectedRouter
             history={history}

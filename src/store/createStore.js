@@ -16,7 +16,6 @@ const getLocalStorageIfPresent = () => (
 );
 
 export default () => {
-  // InitialData from Local storage if present
   const initialState = getLocalStorageIfPresent();
 
   const sagaMiddleware = createSagaMiddleware();

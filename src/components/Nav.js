@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
+import Box from 'grommet/components/Box';
 import Sidebar from 'grommet/components/Sidebar';
 import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
 import Menu from 'grommet/components/Menu';
 import Anchor from 'grommet/components/Anchor';
+import Spinning from 'grommet/components/icons/Spinning';
 
 import { fetchRepositories } from "../store/actions/repositories";
 
@@ -27,13 +29,22 @@ export class Nav extends Component {
   render() {
     const { repositoriesStore } = this.props;
 
-    let content = <span>Loading...</span>;
-    if (repositoriesStore.repositories) {
+    let content;
+    if (!repositoriesStore.repositories) {
+      content = <Box
+        direction='row'
+        responsive={false}
+        pad={{ between: 'small', horizontal: 'medium', vertical: 'medium' }}
+      >
+        <Spinning /><span>Loading...</span>
+      </Box>;
+    }
+    else {
       content = this.createListOfProjects(repositoriesStore.repositories);
     }
 
     return (
-      <Sidebar colorIndex='neutral-5' fixed={true}>
+      <Sidebar colorIndex='neutral-4' fixed={true}>
         <Header size='large' justify='between' pad={{ horizontal: 'small' }}>
           <Title>
             <span><img src={Logo} className="App-logo" alt="logo" style={{height: 40, width: 40}} />
