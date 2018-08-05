@@ -26,8 +26,19 @@ Go in src/config/index.js and add you personal github access token
 ### Test
 npm test
 
-### Technical Decision taken
-UI Framework : Decided to test Grommet Ui framework ([https://github.com/grommet/grommet](https://github.com/grommet/grommet))
+### Tech Stack
+- React + Redux + Saga
+- LocalStorage
+- UI Framework : Decided to test Grommet Ui framework ([https://github.com/grommet/grommet](https://github.com/grommet/grommet))
+- JEST test + Enzyme Snapshot testing
+- Deployed using S3 (Following serverless approach)
+- Worked with Pull Request on github repo (https://github.com/stephanefbouchard/Xapo/pulls?q=is%3Apr+is%3Aclosed)
+
+### Area to improve
+Oviously! There would be a lot of area to improve such as : 
+- Polished UI (UI is really basic right now)
+- More testing coverage (Redux store coverage)
+- Include CloudFront in front of S3 for deployment
 
 ### Description of the project
 
