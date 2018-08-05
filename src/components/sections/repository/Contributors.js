@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Box from 'grommet/components/Box';
 import Spinning from 'grommet/components/icons/Spinning';
 
-class Contributors extends Component {
+export class Contributors extends Component {
   static propTypes = {
     organizationName: PropTypes.string.isRequired,
     repositoryName: PropTypes.string.isRequired,
@@ -17,7 +17,10 @@ class Contributors extends Component {
     const { repositoryContributors } = repositoriesStore;
 
     let apiStatus = repositoriesStore.api.REPOSITORY_CONTRIBUTORS_GET;
-    if (apiStatus.isFetching) {
+    if (apiStatus.error) {
+      return <span>{apiStatus.error.message}</span>;
+    }
+    if (apiStatus.isFetching || !repositoryContributors) {
       return <Box
         direction='row'
         responsive={false}
@@ -26,16 +29,13 @@ class Contributors extends Component {
         <Spinning /><span>Loading Contributors...</span>
       </Box>;
     }
-    if (apiStatus.error) {
-      return <span>{apiStatus.error.message}</span>;
-    }
 
     return (
       <Box size='large'>
         {
           Object.keys(repositoryContributors).map(key => {
             const contributor = repositoryContributors[key];
-            return <span><a href={contributor.html_url} target='_blank' key={contributor.id}>{contributor.login}</a></span>
+            return <span key={contributor.id}><a href={contributor.html_url} target='_blank'>{contributor.login}</a></span>
           })
         }
       </Box>

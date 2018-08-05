@@ -9,14 +9,14 @@ import sagaServices from './services';
 
 const history = createHistory();
 
-const getLocalStorageIfPresent = () => (
+const getLocalStorageIfPresent = (initialState) => (
   localStorage.getItem(config.LOCAL_STORAGE_KEY)
     ? JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_KEY))
-    : {}
+    : initialState
 );
 
-export default () => {
-  const initialState = getLocalStorageIfPresent();
+export default (initialState = {}) => {
+  const state = getLocalStorageIfPresent(initialState);
 
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [sagaMiddleware, routerMiddleware(history)];
@@ -25,7 +25,7 @@ export default () => {
 
   const store = createStore(
     rootReducer,
-    initialState,
+    state,
     compose(applyMiddleware(...middleware), ...enhancers),
   );
   sagaMiddleware.run(sagaServices);
